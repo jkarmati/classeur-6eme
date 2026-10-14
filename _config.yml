@@ -1,0 +1,6 @@
+title: Classeur virtuel de 6e
+lang: fr
+markdown: kramdown
+exclude:
+  - README.md
+  - GUIDE_INSTALLATION.md

@@ -1,0 +1,15 @@
+---
+layout: null
+---
+{%- assign fichiers = site.static_files | where_exp: "f", "f.path contains '/documents/'" | sort: "path" -%}
+[
+{%- assign premier = true -%}
+{%- for fichier in fichiers -%}
+{%- assign ext = fichier.extname | downcase -%}
+{%- if ext == '.pdf' or ext == '.jpg' or ext == '.jpeg' or ext == '.png' or ext == '.webp' -%}
+{%- unless premier -%},{%- endunless -%}
+{"path":{{ fichier.path | remove_first: '/' | jsonify }},"filename":{{ fichier.name | jsonify }}}
+{%- assign premier = false -%}
+{%- endif -%}
+{%- endfor -%}
+]
