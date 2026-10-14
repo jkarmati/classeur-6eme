@@ -1,5 +1,34 @@
 # Mettre en ligne le classeur virtuel de 6e
 
+## La méthode recommandée : gérer le classeur depuis le navigateur
+
+L'espace enseignant est accessible ici :
+
+**https://jkarmati.github.io/classeur-6eme/gestion.html**
+
+Il permet de :
+- Choisir « Fiches » ou l'un des six intercalaires.
+- Déposer directement plusieurs PDF ou images par glisser-déposer, sans modifier leur nom.
+- Organiser les documents à la souris, avec un glisser-déposer, ou en cliquant sur les flèches ↑ / ↓.
+- Enregistrer cet ordre : les élèves le verront après le prochain déploiement.
+- Supprimer des documents si nécessaire, avec une confirmation.
+
+**Configuration nécessaire une seule fois (puis à renouveler à l'expiration de l'autorisation) :**
+1. Sur ton compte GitHub, ouvre https://github.com/settings/personal-access-tokens/new .
+2. Crée un **Fine-grained personal access token** avec un nom reconnaissable, par exemple `Classeur virtuel 6e`, et une date d'expiration.
+3. Dans **Resource owner**, sélectionne **jkarmati** ; dans **Repository access**, sélectionne **Only select repositories**, puis **classeur-6eme** uniquement.
+4. Dans **Repository permissions**, règle **Contents → Read and write**. Tu n'as pas besoin de donner d'autres droits.
+5. Termine la création et copie le jeton. **Ne le partage pas et ne le dépose pas dans le dépôt ou sur Pronote.**
+6. Ouvre l'espace enseignant, colle le jeton dans la zone réservée et clique sur **Accéder au classeur**.
+
+Le jeton **n'est pas stocké sur le site ni dans le navigateur** ; il est conservé en mémoire uniquement le temps où la page reste ouverte. Il faut donc le ressaisir lors d'une nouvelle visite. Pour plus de confort, conserve-le uniquement dans ton gestionnaire de mots de passe personnel, jamais dans les documents partagés.
+
+La page de gestion est publiquement consultable, mais seul un jeton valide, autorisé pour le dépôt, peut enregistrer des modifications. Le site restant public, n'y publie aucun document contenant des informations personnelles sur les élèves.
+
+**Synchronisation :** une mise à jour faite depuis la page Web arrive directement sur GitHub. Si tu continues à utiliser GitHub Desktop, fais d'abord **Fetch origin → Pull origin** avant toute nouvelle modification locale.
+
+**Limite d'importation depuis la page :** 20 Mio par fichier. Pour les PDF plus volumineux, utilise encore GitHub Desktop.
+
 ## Fonctionnement
 
 - **Pour les élèves et les parents :** un seul lien internet ; aucun compte, aucune installation.
@@ -36,7 +65,9 @@
 
 ## Ranger les documents dans le bon ordre
 
-Les fichiers apparaissent par ordre de nom. Employer une numérotation au début :
+**Méthode recommandée :** dans l'espace enseignant, choisis l'intercalaire, déplace les documents à la souris ou avec ↑ / ↓, puis clique sur **Enregistrer l'ordre**. Le fichier `ordre.json` est mis à jour automatiquement. Les noms des documents ne changent pas.
+
+**Méthode de secours sans espace enseignant :** si aucun ordre personnalisé n'a été enregistré, les fichiers apparaissent par ordre de nom. Tu peux les numéroter au début :
 
 - `01 - Page de garde.pdf`
 - `02 - Fiche méthode.pdf`
