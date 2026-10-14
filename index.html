@@ -153,7 +153,11 @@ function render(){
 }
 function flip(step){
  if(busy)return;
- const mobile=isMobile(),old=mobile?mobilePage:spread,limit=mobile?pages.length:Math.ceil(pages.length/2),next=old+step;
+ const mobile=isMobile(),old=mobile?mobilePage:spread,limit=mobile?pages.length:Math.ceil(pages.length/2);
+ let next=old+step;
+ // Les pages de calage servent uniquement à aligner les rectos à droite sur ordinateur.
+ // Sur téléphone, on les saute pour ne pas présenter de pages blanches inutiles.
+ if(mobile){while(next>=0&&next<limit&&pages[next]?.type==='blank')next+=step}
  if(next<0||next>=limit)return;
  busy=true;let front,back;
  if(mobile){front=old;back=next;mobilePage=next;spread=Math.floor(mobilePage/2)}
