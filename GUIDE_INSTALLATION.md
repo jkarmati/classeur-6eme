@@ -21,7 +21,13 @@ Il permet de :
 5. Termine la création et copie le jeton. **Ne le partage pas et ne le dépose pas dans le dépôt ou sur Pronote.**
 6. Ouvre l'espace enseignant, colle le jeton dans la zone réservée et clique sur **Accéder au classeur**.
 
-Le jeton **n'est pas stocké sur le site ni dans le navigateur** ; il est conservé en mémoire uniquement le temps où la page reste ouverte. Il faut donc le ressaisir lors d'une nouvelle visite. Pour plus de confort, conserve-le uniquement dans ton gestionnaire de mots de passe personnel, jamais dans les documents partagés.
+**Connexion avec une phrase de passe mémorisable :** lors de la première connexion avec ton jeton, un encadré « Retenir mon accès sur cet appareil » te propose de choisir puis confirmer une phrase de passe personnelle d'au moins 16 caractères (idéalement au moins quatre mots sans lien). La page chiffre alors ton jeton avec AES-GCM et une clé dérivée de ta phrase de passe par PBKDF2-SHA256 (600 000 itérations), puis **enregistre uniquement le jeton chiffré dans ce navigateur**, jamais dans le dépôt public. À la prochaine visite, la phrase de passe suffit à déverrouiller l'accès sur **ce même appareil et dans ce même navigateur**.
+
+- Le jeton en clair n'est conservé en mémoire que pendant la session connectée.
+- La phrase de passe n'est pas stockée ; si tu l'oublies, utilise ton jeton GitHub pour te reconnecter (ou recrées-en un si nécessaire).
+- Le bouton « Oublier le jeton mémorisé » ou « Effacer l'accès enregistré » efface sa copie chiffrée du navigateur ; cela ne révoque pas le jeton GitHub.
+- Si le jeton expire, utilise « Utiliser un autre jeton », efface l'ancien accès chiffré puis enregistre le nouveau.
+- Cette facilité n'est adaptée qu'à un ordinateur personnel de confiance, **pas à un ordinateur partagé du collège**. Une phrase trop simple expose à des attaques par essais. Pour un ordinateur partagé, saisis le jeton à chaque connexion et ne l'enregistre pas.
 
 La page de gestion est publiquement consultable, mais seul un jeton valide, autorisé pour le dépôt, peut enregistrer des modifications. Le site restant public, n'y publie aucun document contenant des informations personnelles sur les élèves.
 
