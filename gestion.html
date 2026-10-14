@@ -39,6 +39,12 @@ button.danger:hover{background:#fde9e6}
 .status{border-radius:10px;padding:11px 13px;margin-top:12px;background:#eef5f3;color:#27615e;font-size:14px;white-space:pre-wrap;line-height:1.55}
 .status.error{background:#fff0ef;color:#9b3b35}
 .status.warn{background:#fff7e5;color:#87611b}
+.vault-box{margin-top:17px;border:1px solid #cddfd6;background:#f6faf8;border-radius:12px;padding:15px}
+.vault-box h3{font-size:15px;margin:0 0 5px}
+.vault-box p{margin:5px 0 12px}
+.vault-choice{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.vault-choice button{font-size:13px}
+.vault-note{font-size:12px;color:#58716c}
 .toolbar{display:flex;gap:11px;align-items:end;justify-content:space-between;flex-wrap:wrap;margin:10px 0 20px}
 .choose{min-width:210px;max-width:430px;flex:1}
 .flex{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -70,12 +76,28 @@ footer{color:#66817b;font-size:12px;text-align:center;line-height:1.7;margin-top
 <section class="panel" id="loginPanel">
 <h2>1. Ouvrir mon espace de gestion</h2>
 <p class="note">Le classeur est public en lecture, mais seul le titulaire d'une autorisation GitHub peut le modifier. Pour la première utilisation, crée un <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">jeton d'accès GitHub à permissions limitées</a> : propriétaire <strong>jkarmati</strong>, dépôt <strong>classeur-6eme</strong> uniquement, autorisation <strong>Contents : Read and write</strong>. Fixe-lui une durée d'expiration. Il faudra en créer un nouveau à son expiration.</p>
-<div class="info"><strong>Sécurité :</strong> ce jeton est un véritable droit d'écriture sur ton dépôt. Garde-le secret, ne le transmets pas aux élèves et utilise cette page sur ton propre appareil. Il n'est ni inscrit dans le site, ni enregistré dans le navigateur : il reste seulement en mémoire pendant cette visite.</div>
+<div class="info"><strong>Sécurité :</strong> le jeton donne le droit de modifier ton dépôt GitHub. Pour éviter de le retaper, tu peux l'enregistrer <strong>chiffré uniquement dans ce navigateur</strong>, protégé par une longue phrase de passe. N'utilise cette option que sur ton appareil personnel. Rien n'est enregistré en clair ni publié sur GitHub.</div>
+<div id="savedLogin" class="vault-box hidden">
+<h3>🔒 Déverrouiller mon classeur</h3>
+<p class="note">Le jeton GitHub est enregistré sous forme chiffrée dans ce navigateur. Saisis ta phrase de passe personnelle.</p>
+<div class="auth"><div class="field"><label for="unlockPhrase">Ma phrase de passe</label><input type="password" id="unlockPhrase" placeholder="Ta phrase de plusieurs mots" autocomplete="off" spellcheck="false"></div><button id="unlock" type="button">Déverrouiller</button></div>
+<div class="vault-choice"><button type="button" id="useToken" class="secondary">Utiliser un autre jeton</button><button type="button" id="forgetVault" class="danger secondary">Oublier le jeton mémorisé</button></div>
+</div>
+<div id="manualLogin">
 <div class="auth" style="margin-top:16px"><div class="field"><label for="token">Jeton GitHub (jamais affiché)</label><input type="password" id="token" placeholder="github_pat_..." autocomplete="off" spellcheck="false"></div><button id="connect" type="button">Accéder au classeur</button></div>
+<div class="vault-choice"><button id="useSaved" type="button" class="secondary hidden">← Déverrouiller avec ma phrase de passe</button></div>
+</div>
 <div class="status hidden" id="authStatus" role="status" aria-live="polite"></div>
 </section>
 <section class="panel hidden" id="editorPanel">
 <div class="heading"><div><h2>2. Mes documents</h2><p class="note" id="connectedAs" style="margin:5px 0 0"></p></div><button id="disconnect" class="secondary" type="button">Se déconnecter</button></div>
+<div class="vault-box" id="vaultPanel">
+<div id="vaultSetup" class="hidden"><h3>🔐 Retenir mon accès sur cet appareil</h3><p class="note">Option facultative : crée une <strong>phrase longue et facile à retenir</strong> (idéalement au moins quatre mots sans lien). Le jeton sera chiffré et conservé dans ce navigateur seulement. Ne choisis pas une phrase courte ou évidente.</p>
+<div class="auth"><div class="field"><label for="newPhrase">Choisir ma phrase de passe (16 caractères minimum)</label><input id="newPhrase" type="password" autocomplete="new-password" spellcheck="false"></div><div class="field"><label for="confirmPhrase">Confirmer ma phrase</label><input id="confirmPhrase" type="password" autocomplete="new-password" spellcheck="false"></div><button type="button" id="saveCredential">Enregistrer mon accès chiffré</button></div>
+</div>
+<div id="vaultAlreadySaved" class="hidden"><div class="heading"><div><strong>🔒 Accès chiffré enregistré sur cet appareil</strong><p class="vault-note">Tu pourras revenir avec ta phrase de passe sans recopier le jeton.</p></div><button id="removeCredential" type="button" class="secondary danger">Effacer l'accès enregistré</button></div></div>
+<div class="status hidden" id="vaultStatus" role="status" aria-live="polite"></div>
+</div>
 <div class="toolbar"><div class="field choose"><label for="folder">Intercalaire à modifier</label><select id="folder"></select></div><button type="button" id="refresh" class="secondary">↻ Recharger la liste</button></div>
 <div class="dropzone" id="dropzone"><strong>Déposer les PDF ici</strong><span class="note">Glisse tes PDF ou images ici, ou sélectionne plusieurs fichiers à la fois.</span><label class="upload-label" for="upload">+ Ajouter des documents<input type="file" id="upload" multiple accept=".pdf,.png,.jpg,.jpeg,.webp,application/pdf,image/png,image/jpeg,image/webp"></label><span class="note">PDF, JPG, PNG ou WEBP · 20 Mio maximum par fichier · Le nom d'origine est conservé.</span></div>
 <div class="status hidden" id="actionStatus" role="status" aria-live="polite"></div>
@@ -83,7 +105,7 @@ footer{color:#66817b;font-size:12px;text-align:center;line-height:1.7;margin-top
 <ul id="documents" class="documents" aria-label="Documents de l'intercalaire choisi"></ul>
 <div class="flex"><button id="save" type="button">Enregistrer l'ordre</button><span class="note" id="saveHint">Les changements ne seront visibles par les élèves qu'après publication.</span></div>
 </section>
-<footer>GitHub Pages publie généralement les changements en quelques minutes. Les PDF restent consultables en entier dans le classeur, même lorsqu'il n'affiche que leurs faces extérieures.<br>Cette page de gestion est publique à l'adresse indiquée, mais aucune modification n'est possible sans une autorisation GitHub valide.</footer>
+<footer>Ton jeton est protégé par ta phrase de passe dans ce navigateur uniquement. Perdre la phrase oblige à ressaisir ou recréer un jeton GitHub. GitHub Pages publie généralement les changements en quelques minutes. Les PDF restent consultables en entier dans le classeur, même lorsqu'il n'affiche que leurs faces extérieures.<br>Cette page de gestion est publique à l'adresse indiquée, mais aucune modification n'est possible sans une autorisation GitHub valide.</footer>
 </main>
 <script>
 'use strict';
@@ -100,12 +122,19 @@ const SECTIONS=[
 const byId=id=>document.getElementById(id);
 let token='', orderSha='', savedOrder={}, active=SECTIONS[0].key;
 let listed=[], pending=[], busy=false, changed=false, dragIndex=null;
+const VAULT_KEY='classeur-6e/github-credential-v1';
+const CRYPTO_ITERATIONS=600000;
+let loginMode='manual';
 const folder=byId('folder'), items=byId('documents');
 function message(id,text,type){
  const e=byId(id);e.textContent=text;e.className='status'+(type?' '+type:'');
 }
 function clearMessage(id){const e=byId(id);e.textContent='';e.className='status hidden'}
-function setBusy(value){busy=value;['save','refresh','upload','folder','connect'].forEach(id=>byId(id).disabled=value);byId('dropzone').style.opacity=value?'.5':'1'}
+function setBusy(value){
+ busy=value;
+ ['save','refresh','upload','folder','connect','unlock','saveCredential','useToken','useSaved','forgetVault','removeCredential'].forEach(id=>{const el=byId(id);if(el)el.disabled=value});
+ byId('dropzone').style.opacity=value?'.5':'1';
+}
 function route(path){return 'https://api.github.com/repos/'+OWNER+'/'+REPO+'/contents/'+path.split('/').map(encodeURIComponent).join('/')}
 async function api(method,url,body){
  const headers={Accept:'application/vnd.github+json',Authorization:'Bearer '+token,'X-GitHub-Api-Version':'2022-11-28'};
@@ -253,30 +282,119 @@ async function selectFolder(key){
  catch(err){message('actionStatus','Impossible de lire les documents : '+err.message,'error')}
  finally{setBusy(false);render()}
 }
-async function connect(){
- const value=byId('token').value.trim();
- if(!value){message('authStatus','Saisis d’abord ton jeton GitHub.','warn');return}
- token=value;setBusy(true);
+// Le secret n'est jamais publié sur GitHub. Seule une version chiffrée
+// AES-GCM, avec une clé dérivée de la phrase par PBKDF2, reste sur l'appareil.
+function savedCredential(){try{return localStorage.getItem(VAULT_KEY)}catch{return null}}
+function refreshLogin(){
+ const stored=Boolean(savedCredential());
+ if(loginMode==='saved'&&!stored)loginMode='manual';
+ byId('savedLogin').classList.toggle('hidden',loginMode!=='saved');
+ byId('manualLogin').classList.toggle('hidden',loginMode==='saved');
+ byId('useSaved').classList.toggle('hidden',!stored);
+ byId('vaultSetup').classList.toggle('hidden',stored);
+ byId('vaultAlreadySaved').classList.toggle('hidden',!stored);
+}
+function bytesToB64(bytes){
+ let binary='';
+ for(let i=0;i<bytes.length;i+=32768)binary+=String.fromCharCode(...bytes.subarray(i,i+32768));
+ return btoa(binary);
+}
+function b64ToBytes(text){return Uint8Array.from(atob(text),c=>c.charCodeAt(0))}
+async function deriveVaultKey(phrase,salt,iterations){
+ if(!globalThis.crypto?.subtle)throw new Error('Chiffrement indisponible : utilise HTTPS et un navigateur récent.');
+ const keyMaterial=await crypto.subtle.importKey('raw',new TextEncoder().encode(phrase),'PBKDF2',false,['deriveKey']);
+ return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations,hash:'SHA-256'},keyMaterial,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+}
+async function encryptCredential(secret,phrase){
+ const salt=crypto.getRandomValues(new Uint8Array(16));
+ const iv=crypto.getRandomValues(new Uint8Array(12));
+ const key=await deriveVaultKey(phrase,salt,CRYPTO_ITERATIONS);
+ const encrypted=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,new TextEncoder().encode(secret));
+ return JSON.stringify({v:1,kdf:'PBKDF2-SHA256',iterations:CRYPTO_ITERATIONS,salt:bytesToB64(salt),iv:bytesToB64(iv),ciphertext:bytesToB64(new Uint8Array(encrypted))});
+}
+async function decryptCredential(stored,phrase){
+ const record=JSON.parse(stored);
+ if(record.v!==1||record.kdf!=='PBKDF2-SHA256'||record.iterations!==CRYPTO_ITERATIONS)throw new Error('Format du jeton enregistré non reconnu.');
+ const salt=b64ToBytes(record.salt),iv=b64ToBytes(record.iv),cipher=b64ToBytes(record.ciphertext);
+ if(salt.length!==16||iv.length!==12||cipher.length<16)throw new Error('Jeton enregistré incomplet.');
+ const key=await deriveVaultKey(phrase,salt,record.iterations);
+ const plaintext=await crypto.subtle.decrypt({name:'AES-GCM',iv},key,cipher);
+ return new TextDecoder().decode(plaintext);
+}
+async function enterEditor(secret){
+ token=secret;setBusy(true);
  try{
   const identity=await api('GET','https://api.github.com/user');
-  if(identity.login.toLowerCase()!==OWNER)throw new Error('Ce jeton ne correspond pas au compte GitHub du propriétaire du classeur.');
+  if(identity.login.toLowerCase()!==OWNER)throw new Error('Cette autorisation GitHub ne correspond pas au propriétaire du classeur.');
   await loadOrder();
   active=folder.value;
   await readFolder();
   byId('connectedAs').textContent='Connecté avec le compte GitHub '+identity.login+'.';
   byId('token').value='';
+  byId('unlockPhrase').value='';
   byId('loginPanel').classList.add('hidden');
   byId('editorPanel').classList.remove('hidden');
- }catch(err){message('authStatus','Connexion impossible : '+err.message,'error');token=''}
- finally{setBusy(false);render()}
+  clearMessage('authStatus');
+  refreshLogin();
+ }catch(err){
+  token='';
+  message('authStatus','Connexion impossible : '+err.message+' Si le jeton a expiré, utilise « Utiliser un autre jeton ».','error');
+ }finally{setBusy(false);render()}
+}
+async function connect(){
+ const value=byId('token').value.trim();
+ if(!value){message('authStatus','Saisis d’abord ton jeton GitHub.','warn');return}
+ await enterEditor(value);
+}
+async function unlockCredential(){
+ const stored=savedCredential(),phrase=byId('unlockPhrase').value;
+ if(!stored){loginMode='manual';refreshLogin();return}
+ if(!phrase){message('authStatus','Saisis ta phrase de passe.','warn');return}
+ setBusy(true);
+ let decrypted='';
+ try{decrypted=await decryptCredential(stored,phrase)}
+ catch(err){message('authStatus','Phrase incorrecte ou accès enregistré endommagé. Tu peux réessayer ou utiliser ton jeton GitHub.','error')}
+ finally{byId('unlockPhrase').value='';setBusy(false)}
+ if(decrypted)await enterEditor(decrypted);
+}
+async function saveEncryptedCredential(){
+ const phrase=byId('newPhrase').value,confirm=byId('confirmPhrase').value;
+ if(phrase.length<16){message('vaultStatus','Utilise une phrase de passe d’au moins 16 caractères, idéalement composée de quatre mots sans lien.','warn');return}
+ if(phrase!==confirm){message('vaultStatus','Les deux phrases ne correspondent pas.','warn');return}
+ if(!token){message('vaultStatus','Reconnecte-toi d’abord avec ton jeton GitHub.','error');return}
+ setBusy(true);
+ try{
+  const encrypted=await encryptCredential(token,phrase);
+  localStorage.setItem(VAULT_KEY,encrypted);
+  message('vaultStatus','Accès enregistré sous forme chiffrée sur cet appareil. Tu pourras utiliser ta phrase de passe la prochaine fois.','');
+  refreshLogin();
+ }catch(err){message('vaultStatus','Impossible de mémoriser cet accès : '+err.message,'error')}
+ finally{byId('newPhrase').value='';byId('confirmPhrase').value='';setBusy(false)}
+}
+function eraseSavedCredential(){
+ if(!confirm('Effacer le jeton chiffré enregistré dans ce navigateur ? Tu devras à nouveau saisir ton jeton GitHub pour la prochaine connexion.'))return;
+ try{localStorage.removeItem(VAULT_KEY)}
+ catch(err){message('authStatus','Impossible d’effacer le jeton : '+err.message,'error');return}
+ loginMode='manual';refreshLogin();
+ message(byId('editorPanel').classList.contains('hidden')?'authStatus':'vaultStatus','Accès enregistré effacé de ce navigateur.','');
 }
 SECTIONS.forEach(s=>{const opt=document.createElement('option');opt.value=s.key;opt.textContent=s.label;folder.append(opt)});
 byId('connect').addEventListener('click',connect);
 byId('token').addEventListener('keydown',e=>{if(e.key==='Enter')connect()});
+byId('unlock').addEventListener('click',unlockCredential);
+byId('unlockPhrase').addEventListener('keydown',e=>{if(e.key==='Enter')unlockCredential()});
+byId('saveCredential').addEventListener('click',saveEncryptedCredential);
+byId('forgetVault').addEventListener('click',eraseSavedCredential);
+byId('removeCredential').addEventListener('click',eraseSavedCredential);
+byId('useToken').addEventListener('click',()=>{loginMode='manual';clearMessage('authStatus');refreshLogin();byId('token').focus()});
+byId('useSaved').addEventListener('click',()=>{loginMode='saved';clearMessage('authStatus');refreshLogin();byId('unlockPhrase').focus()});
+loginMode=savedCredential()?'saved':'manual';refreshLogin();
 byId('disconnect').addEventListener('click',()=>{
  token='';listed=[];pending=[];savedOrder={};orderSha='';changed=false;
  byId('editorPanel').classList.add('hidden');byId('loginPanel').classList.remove('hidden');
- clearMessage('authStatus');byId('token').value='';byId('token').focus();
+ clearMessage('authStatus');byId('token').value='';byId('unlockPhrase').value='';
+ loginMode=savedCredential()?'saved':'manual';refreshLogin();
+ byId(loginMode==='saved'?'unlockPhrase':'token').focus();
 });
 folder.addEventListener('change',()=>selectFolder(folder.value));
 byId('refresh').addEventListener('click',()=>selectFolder(active));
