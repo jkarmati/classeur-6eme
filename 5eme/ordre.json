@@ -1,7 +1,9 @@
 {
   "00-fiches": [],
   "01-activites": [],
-  "02-competences": [],
+  "02-competences": [
+    "G1 - Construire des symétriques par rapport à un point.pdf"
+  ],
   "03-exercices": [],
   "04-aides": [],
   "05-evaluations": [],
