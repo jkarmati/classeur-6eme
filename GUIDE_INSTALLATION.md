@@ -5,7 +5,9 @@
 - **Pour les élèves et les parents :** un seul lien internet ; aucun compte, aucune installation.
 - **Pour le professeur :** déposer des PDF, JPG ou PNG dans les dossiers prévus. Ils seront affichés au prochain déploiement du site (généralement en quelques minutes), dans l’ordre des noms de fichiers.
 - Les fiches sont **avant** les six intercalaires, pas dans un septième intercalaire.
-- Chaque fichier PDF correspond à une seule feuille du classeur, même pour les livrets de plusieurs pages : seule sa première page est prévisualisée, et le bouton « Ouvrir / imprimer » donne accès à l’ensemble du document.
+- Dans l’intercalaire **Compétences**, chaque PDF reste représenté par une seule feuille virtuelle (aperçu de sa première page), comme auparavant.
+- Dans les autres parties, un PDF de **2 pages** montre le **recto et le verso**. Pour un livret de **plus de 2 pages**, le classeur montre uniquement la **première page et la dernière page**, comme les deux faces extérieures du livret agrafé rangé dans une pochette plastique. Les pages intérieures sont accessibles par « Ouvrir / imprimer ».
+- Les rectos sont placés à droite et les versos à gauche après feuilletage, comme dans un classeur papier.
 - Les cases « Bien rangé » mémorisent uniquement les choix de l'élève dans **son navigateur** (pas de collecte de données d'élèves). Elles ne sont pas synchronisées entre appareils.
 
 ## Installation UNE SEULE FOIS
