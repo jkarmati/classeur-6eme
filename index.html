@@ -66,10 +66,18 @@ function changeChecked(doc,checked){try{localStorage.setItem(sheetKey(doc),check
 function preparePages(keepKey=null){
  const list=[{type:'cover',sect:0,key:'cover'}],starts=[1];
  for(let s=0;s<sections.length;s++){
-  if(s>0){starts[s]=list.length;list.push({type:'divider',sect:s,key:'divider-'+s})}
+  if(s>0){
+   // Dans un classeur réel, l'intercalaire est d'abord sur la droite.
+   if(list.length%2===0)list.push({type:'blank',sect:s,key:'blank-before-divider-'+s});
+   starts[s]=list.length;
+   list.push({type:'divider',sect:s,key:'divider-'+s});
+   // Une fois l'intercalaire tourné, sa face arrière est à gauche :
+   // le premier document de la partie apparaît donc toujours à droite.
+   list.push({type:'blank',sect:s,key:'blank-after-divider-'+s});
+  }
   const arr=docsBySection[s];
   if(!arr.length){list.push({type:'empty',sect:s,key:'empty-'+s});continue}
-  // Un PDF (même un livret multipage) = une seule feuille virtuelle.
+  // Un livret agrafé ou une fiche recto-verso montre seulement ses faces extérieures.
   for(const doc of arr){
    // Les fiches de compétences gardent une seule face, comme précédemment.
    // Ailleurs, une feuille recto-verso ou une pochette agrafée montre
