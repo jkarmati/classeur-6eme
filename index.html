@@ -40,7 +40,7 @@ a{color:#226178}.help-link{display:inline-block;margin:9px 6px 0 0;color:#205c66
 <button type="button" class="corner prev" id="cornerPrev" aria-label="Tourner la page en arrière" title="Page précédente"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
 <button type="button" class="corner next" id="cornerNext" aria-label="Tourner la page en avant" title="Page suivante"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
 </div></div>
-<p class="footnote">Clique sur la <strong>page de droite</strong> pour avancer, sur celle de <strong>gauche</strong> pour revenir. Sur téléphone, touche la moitié droite ou gauche de la feuille, ou balaie du doigt. Les boutons et les flèches du clavier fonctionnent aussi. Tu peux ouvrir ou imprimer chaque document.</p>
+<p class="footnote">Chaque PDF occupe <strong>une seule feuille du classeur</strong>, même si c’est un livret de plusieurs pages. Clique sur « Ouvrir / imprimer » pour voir le document entier. Pour feuilleter le classeur, clique sur la page de droite ou de gauche ; sur téléphone, touche un côté ou balaie du doigt.</p>
 </section></div>
 </main>
 <script type="module">
@@ -69,7 +69,8 @@ function preparePages(keepKey=null){
   if(s>0){starts[s]=list.length;list.push({type:'divider',sect:s,key:'divider-'+s})}
   const arr=docsBySection[s];
   if(!arr.length){list.push({type:'empty',sect:s,key:'empty-'+s});continue}
-  for(const doc of arr){for(let p=1;p<=doc.pages;p++)list.push({type:'doc',sect:s,doc,docPage:p,key:'doc-'+doc.url+'#'+p})}
+  // Un PDF (même un livret multipage) = une seule feuille virtuelle.
+  for(const doc of arr)list.push({type:'doc',sect:s,doc,docPage:1,key:'doc-'+doc.url+'#1'})
  }
  pages=list;firstIndexes=starts;
  if(keepKey){const idx=pages.findIndex(x=>x.key===keepKey);if(idx>=0){spread=Math.floor(idx/2);mobilePage=idx}else {spread=Math.min(spread,Math.ceil(pages.length/2)-1);mobilePage=Math.min(mobilePage,pages.length-1)}}
@@ -89,7 +90,7 @@ function description(entry){
   else inner=`<div class="eyebrow">Intercalaire ${entry.sect} / 6</div><h2>${safe(s.name)}</h2><div style="width:62px;height:5px;border-radius:4px;background:${color};margin:5px 0 12px"></div><div class="empty-note"><strong>Pas encore de documents</strong><p>Les prochains documents déposés dans cette partie apparaîtront ici automatiquement.</p></div>`;
  }else if(entry.type==='doc'){
   cls='document-sheet';const d=entry.doc,scoped=encodeURIComponent(d.url),title=safe(neat(d.filename)),pdf=isPdf(d);
-  const count=d.pages>1?`<span class="document-count">${entry.docPage} / ${d.pages}</span>`:'<span class="document-count">1 feuille</span>';
+  const count=pdf&&d.pages>1?`<span class="document-count">Livret · ${d.pages} pages</span>`:'<span class="document-count">1 feuille</span>';
   const preview=pdf?`<canvas data-pdf-url="${safe(d.url)}" data-pdf-page="${entry.docPage}" aria-label="Aperçu de ${title}, page ${entry.docPage}"></canvas><div class="preview-hint">Aperçu du PDF en cours…<a href="${safe(d.url)}" target="_blank" rel="noopener">Ouvrir le document</a></div>`:`<img loading="lazy" alt="${title}" src="${safe(d.url)}">`;
   inner=`<div class="document-layout" data-sheet="${scoped}"><div class="document-top"><div><div class="document-tag">${entry.sect===0?'Avant les intercalaires':'Intercalaire '+entry.sect+' · '+safe(s.name)}</div><div class="document-name">${title}</div></div>${count}</div><div class="page-preview">${preview}</div><div class="document-actions"><a href="${safe(d.url)}" target="_blank" rel="noopener">↗ Ouvrir / imprimer</a><label class="doc-check"><input type="checkbox" data-check="${safe(d.url)}" ${isChecked(d)?'checked':''}><span>Bien rangé ✓</span></label></div></div>`;
  }
