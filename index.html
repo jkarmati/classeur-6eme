@@ -208,7 +208,20 @@ async function loadCatalogue(){
    if(!/\.(pdf|jpe?g|png|webp)$/i.test(file.filename))continue;
    docsBySection[sect].push({url:file.path,filename:file.filename,pages:1});
   }
-  for(const arr of docsBySection)arr.sort((a,b)=>a.filename.localeCompare(b.filename,'fr',{numeric:true}));
+  // Ordre personnalisable depuis l'espace enseignant : les nouveaux fichiers restent à la fin.
+  let savedOrder={};
+  try{
+   const response=await fetch('ordre.json',{cache:'no-store'});
+   if(response.ok){const obj=await response.json();if(obj&&typeof obj==='object'&&!Array.isArray(obj))savedOrder=obj}
+  }catch(err){console.warn('Ordre manuel indisponible, tri par nom conservé.',err)}
+  docsBySection.forEach((arr,sect)=>{
+   const positions=new Map((Array.isArray(savedOrder[sections[sect].folder])?savedOrder[sections[sect].folder]:[]).map((name,i)=>[name,i]));
+   arr.sort((a,b)=>{
+    const i=positions.has(a.filename)?positions.get(a.filename):Infinity;
+    const j=positions.has(b.filename)?positions.get(b.filename):Infinity;
+    return i-j||a.filename.localeCompare(b.filename,'fr',{numeric:true});
+   });
+  });
   preparePages();
   const docs=docsBySection.flat(),count=docs.length;
   $('#loadStatus').textContent=count?`${count} document${count===1?'':'s'} disponible${count===1?'':'s'} dans le classeur.`:'Les parties sont prêtes. Le professeur ajoutera les premières fiches.';
