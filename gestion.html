@@ -192,7 +192,8 @@ async function saveOrder(){
   });
   savedOrder=obj;orderSha=data.content.sha;changed=false;
   message('actionStatus','Ordre enregistré sur GitHub ! Il sera visible sur le classeur après publication.','');
- }catch(err){message('actionStatus','Enregistrement impossible : '+err.message,'error')}
+  return true;
+ }catch(err){message('actionStatus','Enregistrement impossible : '+err.message,'error');return false}
  finally{setBusy(false);render()}
 }
 async function removeFile(name){
@@ -232,15 +233,17 @@ async function uploadFiles(files){
  }
  changed=success.length>0||changed;
  setBusy(false);render();
+ let saved=true;
  if(success.length){
   // Mémoriser immédiatement la place des nouveaux fichiers, sans obliger à les renommer.
-  await saveOrder();
+  saved=await saveOrder();
  }
  let text=success.length+' fichier(s) déposé(s) sur GitHub. Ils apparaîtront sur le site après publication.';
+ if(!saved)text+='\nAttention : l’ordre n’a pas été enregistré. Utilise « Enregistrer l’ordre » avant de quitter.';
  if(rejected.length)text+='\nFormat ou taille refusé : '+rejected.join(', ');
  if(duplicates.length)text+='\nDéjà présents : '+duplicates.join(', ');
  if(failed.length)text+='\nÉchecs : '+failed.join(' | ');
- message('actionStatus',text,failed.length?'warn':'');
+ message('actionStatus',text,failed.length||!saved?'warn':'');
 }
 async function selectFolder(key){
  if(busy)return;
