@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#eaf0ed">
+<meta name="description" content="Le classeur virtuel des élèves de 3e, avec ses fiches, ses six intercalaires et les documents à retrouver dans le classeur papier.">
+<title>Mon classeur virtuel — 3e</title>
+<style>:root{--ink:#243344;--muted:#5b6a78;--background:#edf1ee;--paper:#fffefa;--line:#dce2e1;--shadow:0 24px 70px rgba(32,53,65,.17)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 5% 3%,#fffaf0,transparent 35%),linear-gradient(165deg,#eef2ef,#e1e8e6);min-height:100vh;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink)}button{font:inherit}button:focus-visible{outline:3px solid #2c718b;outline-offset:4px}.shell{max-width:1330px;padding:22px clamp(15px,4vw,45px) 36px;margin:auto}.heading{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:21px}.tag{font-size:12px;letter-spacing:.14em;font-weight:800;text-transform:uppercase;color:#54747a}.heading h1{margin:5px 0;font-size:clamp(27px,3.1vw,39px);letter-spacing:-.055em}.heading p{color:#526875;margin:4px 0 0;font-size:14px}.version{border:1px solid #cad8d7;background:#fff9;border-radius:25px;padding:8px 12px;font-size:12px;color:#47716f;font-weight:700;white-space:nowrap}.layout{display:grid;grid-template-columns:minmax(172px,215px) minmax(0,1fr);gap:24px;align-items:start}.sidebar{background:#ffffffbd;border:1px solid #d4e0dd;border-radius:18px;padding:18px 13px;box-shadow:0 8px 25px #2c4c4311}.sidebar h2{font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:#70828b;margin:0 8px 15px}.index{display:grid;gap:8px}.index button{border:1px solid #e0e6e3;border-left:5px solid var(--tab);border-radius:9px;background:#fcfdfb;text-align:left;display:flex;align-items:center;gap:10px;padding:12px 9px;cursor:pointer;color:#2d3f49;font-size:14px;font-weight:650;transition:transform .16s,background .16s}.index button:hover{transform:translateX(3px);background:white}.index button[aria-current="page"]{background:#eaf1ef;border-color:#bacbc6;border-left-color:var(--tab);box-shadow:0 4px 12px #294c4418}.index .number{width:24px;height:24px;display:grid;place-items:center;background:var(--tab);border-radius:6px;font-size:12px;flex-shrink:0}.index .number.intro{background:#e7e9e4}.sidebar-note{border-top:1px solid #e0e7e4;font-size:12px;color:#60737a;line-height:1.55;margin:19px 7px 0;padding-top:14px}.main{min-width:0}.book-frame{position:relative;padding:12px 28px 12px 12px;background:#d7e1dc;border-radius:20px;border:1px solid #cad8d0;box-shadow:var(--shadow)}.book{height:clamp(415px,46vw,595px);position:relative;display:grid;grid-template-columns:1fr 1fr;perspective:2200px;isolation:isolate;background:#bac7c0;border-radius:10px;box-shadow:inset 0 3px 8px #203e3d2a;overflow:visible}.page{position:relative;min-width:0;height:100%;overflow:hidden;background:var(--paper);padding:clamp(27px,3vw,43px) clamp(20px,3vw,41px);display:flex;flex-direction:column;box-shadow:inset 0 0 0 1px #e5e4df}.book>.page{padding:0;overflow:hidden}.left-page{border-radius:8px 0 0 8px;box-shadow:inset -16px 0 24px -22px #101c29a6, inset 0 0 0 1px #e5e4df}.right-page{border-radius:0 8px 8px 0;box-shadow:inset 16px 0 24px -22px #101c29a6, inset 0 0 0 1px #e5e4df}.page.paper{background:repeating-linear-gradient(to bottom,#fffefa 0,#fffefa 35px,#eff1eb 36px)}.page.paper:after{content:"";position:absolute;left:52px;top:0;bottom:0;border-left:1px solid #f2d4c9}.page .content{position:relative;z-index:1;min-width:0;height:100%;display:flex;flex-direction:column}.page .page-number{position:absolute;bottom:15px;right:22px;font-size:12px;color:#849198;font-weight:650}.page .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.15em;font-weight:850;color:#71808b}.page h2{font-size:clamp(26px,3.3vw,39px);line-height:1.09;letter-spacing:-.045em;margin:9px 0 14px}.page p{font-size:clamp(13px,1.3vw,16px);color:#526674;line-height:1.65}.binder-logo{display:inline-flex;align-items:center;gap:10px;border:1px solid #cbd8d3;border-radius:10px;padding:9px 12px;color:#426a67;font-size:13px;font-weight:750;align-self:start;background:#ffffff9c}.cover{background:linear-gradient(165deg,#d8e5df,#f6f3e9 58%,#e7ebe6);border:13px solid #dde8e3}.cover .content{justify-content:center;padding:12px}.cover .cover-title{font-size:clamp(30px,4.1vw,53px);font-weight:850;line-height:1.05;letter-spacing:-.06em;margin:19px 0}.cover .cover-grade{display:inline-flex;background:#fff9;padding:6px 15px;border-radius:12px;font-size:16px;font-weight:780;width:max-content}.cover .mini-stack{margin-top:38px;display:flex;gap:7px}.cover .mini-stack span{height:12px;width:36px;border-radius:4px;background:var(--c)}.divider-page{background:linear-gradient(125deg,#fffdfa 0%,#fffdfa 72%,var(--pale) 72%,var(--pale) 100%);border-right:11px solid var(--tab)}.divider-page .large-num{font-size:clamp(74px,12vw,150px);font-weight:900;line-height:1;opacity:.22;color:var(--tab);letter-spacing:-.08em;margin:auto 0 0}.divider-page .section-title{font-size:clamp(32px,4vw,50px);font-weight:850;letter-spacing:-.055em;line-height:1.05;margin:8px 0 12px}.divider-page .section-caption{font-size:14px;color:#61717b;line-height:1.5}.divider-page .vertical-tab{position:absolute;right:0;top:var(--top);background:var(--tab);writing-mode:vertical-rl;padding:12px 4px;font-weight:800;font-size:11px;border-radius:0 0 0 7px;z-index:2;max-height:130px}.empty-note{border:2px dashed #cedad9;border-radius:12px;background:#fffcf7e6;padding:20px 22px;margin:28px 0 0;max-width:360px}.empty-note strong{font-size:17px}.empty-note p{font-size:14px;margin-bottom:0}.tip{margin-top:auto;color:#667a80;font-size:12px;padding-top:23px}.fiche-decoration{display:flex;gap:9px;margin:22px 0 0}.fiche-decoration span{display:block;width:53px;height:68px;border:2px solid #d7e4df;border-radius:5px;background:#f7faf5;box-shadow:4px 4px 0 #e7ede8}.spine{position:absolute;z-index:6;left:50%;top:0;bottom:0;transform:translateX(-50%);width:19px;background:linear-gradient(90deg,#6a7d83a6,#fff9,#819399ad);pointer-events:none;box-shadow:0 0 6px #223e3f4d}.ring{position:absolute;left:-18px;width:55px;height:28px;border:5px solid #a5b5b5;border-bottom-color:#586e79;border-left-color:#e1eaea;border-right-color:#78909a;border-radius:50%;background:transparent;box-shadow:0 2px 7px #1f313b30}.ring:nth-child(1){top:21%}.ring:nth-child(2){top:48%}.ring:nth-child(3){top:75%}.turner{display:none;z-index:5;position:absolute;top:0;left:50%;width:50%;height:100%;transform-style:preserve-3d;transform-origin:left center;filter:drop-shadow(-10px 5px 7px #26394333);pointer-events:none}.turner.visible{display:block}.turner.forward{animation:forward .72s cubic-bezier(.38,.07,.3,.99) forwards}.turner.backward{left:0;transform-origin:right center;animation:backward .72s cubic-bezier(.38,.07,.3,.99) forwards}.turn-face{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}.turn-face>.page{width:100%;height:100%;border-radius:0}.turn-face.back{transform:rotateY(180deg)}@keyframes forward{0%{transform:rotateY(0)}100%{transform:rotateY(-180deg)}}@keyframes backward{0%{transform:rotateY(0)}100%{transform:rotateY(180deg)}}.corner{position:absolute;bottom:0;height:72px;width:76px;border:0;z-index:4;background:transparent;color:transparent;cursor:pointer;display:grid;place-items:end;padding:0 9px 8px 0;transition:background .2s}.corner.next{right:0}.corner.prev{left:0}.corner:hover{background:#90a59b20;color:#5d7776}.corner:disabled{cursor:default;opacity:0}.corner svg{width:28px;height:28px}.controls{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 15px}.controls button{display:flex;gap:8px;align-items:center;justify-content:center;padding:11px 16px;border-radius:12px;border:1px solid #c4d5d1;background:#fff;color:#274c57;font-weight:750;cursor:pointer;box-shadow:0 3px 12px #1c43430e}.controls button:disabled{opacity:.4;cursor:not-allowed}.indicator{text-align:center;color:#526c76;font-size:13px;font-weight:720}.indicator small{display:block;font-weight:400;color:#7a8c91;margin-top:2px}.footnote{margin:20px 4px 0;font-size:13px;line-height:1.7;color:#5a7078}.desktop-only{}.mobile-only{display:none}
+@media(max-width:840px){.layout{grid-template-columns:1fr;gap:16px}.sidebar{padding:12px}.sidebar h2,.sidebar-note{display:none}.index{grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.index button{flex-direction:column;justify-content:center;gap:3px;font-size:11px;text-align:center;padding:8px 2px;border-left:1px solid #d7e0dc;border-top:4px solid var(--tab);min-height:60px}.index .number{height:22px;width:22px}.sidebar{border-radius:12px}.book{height:clamp(430px,58vw,590px)}.page h2{font-size:clamp(22px,3vw,35px)}}
+@media(max-width:600px){.shell{padding:15px 11px 30px}.heading{align-items:center;margin-bottom:15px}.version{display:none}.heading h1{font-size:27px}.heading p{font-size:12px}.index{display:flex;overflow-x:auto;gap:6px;scrollbar-width:thin}.index button{min-width:74px}.index button[aria-current="page"]{transform:none}.book-frame{padding:10px}.book{height:min(680px,70vh);min-height:395px;display:block}.left-page{display:none!important}.right-page{width:100%;height:100%;border-radius:8px;padding:0}.page h2{font-size:29px}.page p{font-size:14px}.page.paper:after{left:17px}.spine{display:none}.corner.prev{left:0}.corner.next{right:0}.turner{left:0;width:100%}.turner.backward{left:0}.controls button{font-size:12px;padding:10px 8px}.controls{gap:5px}.indicator{font-size:12px}.indicator small{font-size:11px}.mobile-only{display:inline}.desktop-only{display:none}.cover .cover-title{font-size:42px}.divider-page .large-num{font-size:125px}}
+@media(prefers-reduced-motion:reduce){.turner.forward,.turner.backward{animation-duration:.01s}}
+
+/* Site public, documents vivants, mêmes couleurs et même classeur */
+#book > .left-page,#book > .right-page{cursor:pointer}
+#book a,#book label,#book input{cursor:pointer}
+a{color:#226178}.help-link{display:inline-block;margin:9px 6px 0 0;color:#205c66;font-weight:750;font-size:12px}
+.teacher-entry{text-align:right;margin:12px 4px 0;font-size:12px;color:#697d7e}.teacher-entry a{font-weight:750;color:#476d73;text-decoration:none;border-bottom:1px solid #94b1b2}.teacher-entry a:hover{text-decoration:underline}.notice{margin-top:12px;background:#f1f7f3;border:1px solid #d8e7dc;color:#58716e;border-radius:9px;padding:11px;font-size:12px;line-height:1.55}
+.page.document-sheet{background:#fffefa}.page.document-sheet:after{display:none}.document-layout{display:flex;flex-direction:column;height:100%;width:100%;gap:9px;padding:clamp(11px,1.5vw,20px) clamp(13px,1.8vw,23px) 17px}.document-top{display:flex;align-items:start;justify-content:space-between;gap:9px;flex:none}.document-tag{font-size:10px;letter-spacing:.09em;font-weight:780;text-transform:uppercase;color:#7b8e8e}.document-name{font-size:clamp(13px,1.6vw,19px);font-weight:800;line-height:1.17;letter-spacing:-.02em;margin:5px 0;word-break:break-word}.document-count{white-space:nowrap;font-size:10px;font-weight:700;color:#5c7680;background:#e8f0ed;padding:6px 8px;border-radius:20px;flex-shrink:0}.page-preview{display:flex;align-items:center;justify-content:center;flex:1;min-height:40px;overflow:hidden;background:#fff;border:1px solid #e8ebe7;border-radius:7px;position:relative}.page-preview canvas,.page-preview img{max-width:100%;max-height:100%;object-fit:contain;box-shadow:0 1px 8px #344b4a0e}.page-preview canvas{display:none}.preview-hint{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:7px;text-align:center;padding:15px;font-size:13px;color:#688188}.preview-hint a{font-weight:760}.preview-hint.hidden{display:none}.document-actions{flex:none;display:flex;align-items:center;justify-content:space-between;gap:7px;flex-wrap:wrap;font-size:12px}.document-actions a{color:#245e70;font-weight:800;text-decoration:none;background:#e9f3f3;border-radius:8px;padding:8px 10px}.document-actions a:hover{text-decoration:underline;background:#dcecef}.doc-check{display:inline-flex;gap:5px;align-items:center;cursor:pointer;font-weight:680;color:#557078;font-size:12px}.doc-check input{accent-color:#317977;width:16px;height:16px}.has-doc{position:relative}.small-count{font-size:10px;background:#e8ede9;padding:2px 6px;border-radius:7px;white-space:nowrap}.doc-note{font-size:12px;color:#526c73;line-height:1.5;margin-top:8px}.status-text{font-size:12px;color:#58747a;margin-top:11px;line-height:1.45}.sidebar-note{margin-bottom:6px}.folder-pill{padding:5px 9px;background:#e9f0ec;color:#557674;font-weight:750;border-radius:8px;font-size:11px;margin-bottom:11px;display:inline-block}.empty-note{margin-top:15px}.page .page-number{pointer-events:none}.page .content{overflow:hidden}.divider-page .vertical-tab{right:0}.link-row{display:flex;gap:8px;flex-wrap:wrap}.link-row a{font-size:13px;font-weight:730;text-decoration:none}.link-row a:hover{text-decoration:underline}.progress-note{margin-top:11px;font-size:12px;color:#6c858a}.loading{display:inline-flex;gap:6px;align-items:center;white-space:nowrap}.spinner{width:10px;height:10px;border:2px solid #c5dedb;border-top-color:#44817e;border-radius:50%;display:inline-block;animation:spinning .8s linear infinite}@keyframes spinning{to{transform:rotate(360deg)}}
+@media(max-width:600px){.page .content{max-height:100%}.document-layout{padding:12px 13px 16px}.document-name{font-size:17px}.document-actions{gap:5px}.document-actions a{padding:7px 8px;font-size:11px}.doc-check{font-size:11px}.document-count{font-size:10px}.page-preview{min-height:40px}.document-top{gap:4px}}
+@media(prefers-reduced-motion:reduce){.spinner{animation:none}}
+</style>
+</head>
+<body>
+<main class="shell">
+<header class="heading"><div><div class="tag">Classeur de classe · Troisième</div><h1>Mon classeur virtuel</h1><p>Retrouve tes documents dans le bon ordre et vérifie ton classeur à la maison.</p></div><span class="version">Classeur partagé</span></header>
+<div class="layout">
+<aside class="sidebar" aria-label="Accès rapide aux intercalaires">
+<h2>Aller directement à...</h2><nav class="index" id="index"></nav>
+<p class="sidebar-note">Les <strong>fiches</strong> sont placées avant l'intercalaire n° 1. Clique sur un onglet pour accéder à la partie correspondante.</p>
+<div class="notice"><strong>Pour ranger ton classeur</strong> : compare chaque feuille avec le classeur papier, puis coche « Bien rangé ». Tes coches restent uniquement sur cet appareil.</div>
+<p class="status-text" id="loadStatus" role="status" aria-live="polite">Chargement de la liste des documents…</p>
+</aside>
+<section class="main" aria-label="Classeur à feuilleter">
+<div class="controls"><button id="prev" type="button">← Précédente</button><div class="indicator" id="position" role="status" aria-live="polite"></div><button id="next" type="button">Suivante →</button></div>
+<div class="book-frame"><div class="book" id="book">
+<div class="page left-page" id="leftPage"></div><div class="page right-page" id="rightPage"></div>
+<div class="spine" aria-hidden="true"><span class="ring"></span><span class="ring"></span><span class="ring"></span></div>
+<div class="turner" id="turner" aria-hidden="true"><div class="turn-face front" id="turnFront"></div><div class="turn-face back" id="turnBack"></div></div>
+<button type="button" class="corner prev" id="cornerPrev" aria-label="Tourner la page en arrière" title="Page précédente"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+<button type="button" class="corner next" id="cornerNext" aria-label="Tourner la page en avant" title="Page suivante"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+</div></div>
+<p class="footnote">Le classeur reproduit le rangement papier : pour un PDF de <strong>2 pages</strong>, recto puis verso ; pour un livret de <strong>plus de 2 pages</strong>, première puis dernière page (faces visibles de la pochette). Les pages intérieures se consultent avec « Ouvrir / imprimer ». Clique sur les feuilles pour les tourner, ou utilise les boutons en haut.</p>
+<p class="teacher-entry"><a href="gestion.html" title="Accéder à la gestion du classeur (enseignant)">⚙ Espace enseignant</a></p>
+</section></div>
+</main>
+<script type="module">
+const sections=[
+ {name:'Fiches',short:'Fiches',color:'#cbd7d2',pale:'#eff3ef',folder:'00-fiches'},
+ {name:'Activités',short:'Activités',color:'#b6dcd8',pale:'#e8f4f1',folder:'01-activites'},
+ {name:'Compétences',short:'Compétences',color:'#dcc7ee',pale:'#f4ebfa',folder:'02-competences'},
+ {name:'Exercices',short:'Exercices',color:'#f2d09d',pale:'#fcf2e1',folder:'03-exercices'},
+ {name:'Aides',short:'Aides',color:'#bbdbb9',pale:'#eef8e9',folder:'04-aides'},
+ {name:'Évaluations',short:'Évaluations',color:'#edc1bf',pale:'#fbedec',folder:'05-evaluations'},
+ {name:'Feuilles',short:'Feuilles',color:'#bfd5ed',pale:'#eaf2fa',folder:'06-feuilles'}
+];
+const $=s=>document.querySelector(s), left=$('#leftPage'), right=$('#rightPage'), turner=$('#turner'), turnFront=$('#turnFront'), turnBack=$('#turnBack');
+const docsBySection=sections.map(()=>[]),pdfCache=new Map();
+let pages=[],firstIndexes=[],spread=0,mobilePage=1,busy=false,previousMobile=window.innerWidth<=600,pdfjs=null,refreshPending=false;
+const isMobile=()=>window.innerWidth<=600;
+const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const neat=s=>s.replace(/\.[^.]+$/,'').replace(/^\s*\d{1,3}\s*[-_.–]\s*/, '').replace(/_/g,' ').trim();
+const isPdf=doc=>/\.pdf$/i.test(doc.filename);
+function sheetKey(doc){return 'classeur3e-rangement-'+doc.url}
+function isChecked(doc){try{return localStorage.getItem(sheetKey(doc))==='oui'}catch{return false}}
+function changeChecked(doc,checked){try{localStorage.setItem(sheetKey(doc),checked?'oui':'non')}catch{}}
+function preparePages(keepKey=null){
+ const list=[{type:'cover',sect:0,key:'cover'}],starts=[1];
+ for(let s=0;s<sections.length;s++){
+  if(s>0){
+   // Dans un classeur réel, l'intercalaire est d'abord sur la droite.
+   if(list.length%2===0)list.push({type:'blank',sect:s,key:'blank-before-divider-'+s});
+   starts[s]=list.length;
+   list.push({type:'divider',sect:s,key:'divider-'+s});
+   // Une fois l'intercalaire tourné, sa face arrière est à gauche :
+   // le premier document de la partie apparaît donc toujours à droite.
+   list.push({type:'blank',sect:s,key:'blank-after-divider-'+s});
+  }
+  const arr=docsBySection[s];
+  if(!arr.length){list.push({type:'empty',sect:s,key:'empty-'+s});continue}
+  // Un livret agrafé ou une fiche recto-verso montre seulement ses faces extérieures.
+  for(const doc of arr){
+   // Les fiches de compétences gardent une seule face, comme précédemment.
+   // Ailleurs, une feuille recto-verso ou une pochette agrafée montre
+   // exactement ses deux faces extérieures : première et dernière page du PDF.
+   const faces=(s===2||doc.pages<=1)?[1]:[1,doc.pages];
+   if(s!==2 && list.length%2===0){
+    // Le recto doit être à droite, le verso à gauche après feuilletage.
+    list.push({type:'blank',sect:s,key:'blank-'+doc.url});
+   }
+   for(const docPage of faces){
+    list.push({type:'doc',sect:s,doc,docPage,key:'doc-'+doc.url+'#'+docPage});
+   }
+  }
+ }
+ pages=list;firstIndexes=starts;
+ if(keepKey){const idx=pages.findIndex(x=>x.key===keepKey);if(idx>=0){spread=Math.floor(idx/2);mobilePage=idx}else {spread=Math.min(spread,Math.ceil(pages.length/2)-1);mobilePage=Math.min(mobilePage,pages.length-1)}}
+ else{spread=Math.min(spread,Math.ceil(pages.length/2)-1);mobilePage=Math.min(mobilePage,pages.length-1)}
+ render();
+}
+function description(entry){
+ if(!entry)return '<div class="page paper"></div>';
+ const s=sections[entry.sect],color=s.color;
+ let cls='paper',inner='';
+ if(entry.type==='cover'){
+  cls='cover';inner=`<div class="binder-logo">✦ &nbsp; Classeur de classe</div><div class="cover-title">Mon classeur<br>de 3e</div><div class="cover-grade">Pour apprendre à bien ranger</div><p>Les mêmes fiches et intercalaires que dans ton classeur papier, accessibles à la maison.</p><div class="mini-stack">${sections.slice(1).map(x=>`<span style="--c:${x.color}"></span>`).join('')}</div>`;
+ }else if(entry.type==='divider'){
+  cls='divider-page';inner=`<div class="eyebrow">Intercalaire ${entry.sect} sur 6</div><div class="large-num">${entry.sect}</div><div class="section-title">${safe(s.name)}</div><div class="section-caption">Tourne encore la page pour découvrir<br>les documents de cette partie.</div><span class="vertical-tab" style="--tab:${color};--top:${12+entry.sect*10}%">${entry.sect} ${safe(s.name)}</span>`;
+ }else if(entry.type==='blank'){
+  inner='';
+ }else if(entry.type==='empty'){
+  if(entry.sect===0)inner=`<div class="eyebrow">Tout au début du classeur</div><h2>Les fiches</h2><p>Ces fiches sont rangées <strong>avant l'intercalaire n° 1 « Activités ».</strong></p><div class="fiche-decoration" aria-hidden="true"><span></span><span></span><span></span></div><div class="empty-note"><strong>Pas encore de documents</strong><p>Quand le professeur ajoutera des fiches, elles apparaîtront ici.</p></div>`;
+  else inner=`<div class="eyebrow">Intercalaire ${entry.sect} / 6</div><h2>${safe(s.name)}</h2><div style="width:62px;height:5px;border-radius:4px;background:${color};margin:5px 0 12px"></div><div class="empty-note"><strong>Pas encore de documents</strong><p>Les prochains documents déposés dans cette partie apparaîtront ici automatiquement.</p></div>`;
+ }else if(entry.type==='doc'){
+  cls='document-sheet';const d=entry.doc,scoped=encodeURIComponent(d.url),title=safe(neat(d.filename)),pdf=isPdf(d);
+  const hasVerso=entry.sect!==2&&pdf&&d.pages>1;
+  const face=hasVerso?(entry.docPage===1?'Recto':'Verso'):'';
+  const count=hasVerso?`<span class="document-count">${face} · ${d.pages===2?'recto-verso':d.pages+' pages agrafées'}</span>`:(pdf&&d.pages>1?`<span class="document-count">Livret · ${d.pages} pages</span>`:'<span class="document-count">1 feuille</span>');
+  const preview=pdf?`<canvas data-pdf-url="${safe(d.url)}" data-pdf-page="${entry.docPage}" aria-label="Aperçu de ${title}, page ${entry.docPage}"></canvas><div class="preview-hint">Aperçu du PDF en cours…<a href="${safe(d.url)}" target="_blank" rel="noopener">Ouvrir le document</a></div>`:`<img loading="lazy" alt="${title}" src="${safe(d.url)}">`;
+  inner=`<div class="document-layout" data-sheet="${scoped}"><div class="document-top"><div><div class="document-tag">${entry.sect===0?'Avant les intercalaires':'Intercalaire '+entry.sect+' · '+safe(s.name)}</div><div class="document-name">${title}</div></div>${count}</div><div class="page-preview">${preview}</div><div class="document-actions"><a href="${safe(d.url)}" target="_blank" rel="noopener">↗ Ouvrir / imprimer</a><label class="doc-check"><input type="checkbox" data-check="${safe(d.url)}" ${isChecked(d)?'checked':''}><span>Bien rangé ✓</span></label></div></div>`;
+ }
+ return `<div class="page ${cls}" style="--tab:${color};--pale:${s.pale}"><div class="content">${inner}</div><span class="page-number">${pages.indexOf(entry)+1} / ${pages.length}</span></div>`;
+}
+function hydrate(container){
+ container.querySelectorAll('input[data-check]').forEach(input=>input.addEventListener('change',()=>{
+  const doc=docsBySection.flat().find(d=>d.url===input.dataset.check);if(!doc)return;
+  changeChecked(doc,input.checked);
+  document.querySelectorAll('input[data-check]').forEach(x=>{if(x.dataset.check===doc.url)x.checked=input.checked});
+ }));
+ container.querySelectorAll('canvas[data-pdf-url]').forEach(canvas=>renderPDF(canvas));
+}
+async function pdfPromise(url){
+ if(!pdfjs)throw new Error('Lecteur PDF indisponible');
+ if(!pdfCache.has(url))pdfCache.set(url,pdfjs.getDocument({url:new URL(url,document.baseURI).href}).promise);
+ return pdfCache.get(url)
+}
+async function renderPDF(canvas){
+ const url=canvas.dataset.pdfUrl,pagenum=Number(canvas.dataset.pdfPage);
+ try{
+  const documentPdf=await pdfPromise(url);if(!canvas.isConnected)return;
+  const leaf=await documentPdf.getPage(pagenum);if(!canvas.isConnected)return;
+  const box=canvas.parentElement,area=box.getBoundingClientRect(),viewport=leaf.getViewport({scale:1});
+  const scale=Math.max(.1,Math.min((area.width-12)/viewport.width,(area.height-12)/viewport.height));
+  const ratio=Math.min(window.devicePixelRatio||1,2),sized=leaf.getViewport({scale:scale*ratio});
+  canvas.width=Math.ceil(sized.width);canvas.height=Math.ceil(sized.height);
+  canvas.style.width=(sized.width/ratio)+'px';canvas.style.height=(sized.height/ratio)+'px';
+  await leaf.render({canvasContext:canvas.getContext('2d',{alpha:false}),viewport:sized}).promise;
+  if(canvas.isConnected){canvas.style.display='block';box.querySelector('.preview-hint')?.classList.add('hidden')}
+ }catch(err){if(!canvas.isConnected)return;const msg=canvas.parentElement.querySelector('.preview-hint');if(msg)msg.firstChild.textContent='Aperçu non disponible. '}
+}
+function put(element,idx){element.className='page '+(element===left?'left-page':'right-page');element.innerHTML=description(pages[idx]);element.firstElementChild.style.height='100%';element.firstElementChild.style.width='100%';hydrate(element)}
+function render(){
+ if(!pages.length)return;
+ if(isMobile()){left.style.display='none';put(right,mobilePage);spread=Math.floor(mobilePage/2)}
+ else{left.style.display='';put(left,spread*2);put(right,spread*2+1);mobilePage=Math.min(spread*2+1,pages.length-1)}
+ const active=isMobile()?pages[mobilePage]:pages[Math.min(spread*2+1,pages.length-1)],sectionId=active?.sect??0;
+ document.querySelectorAll('#index button').forEach((btn,i)=>{if(i===sectionId)btn.setAttribute('aria-current','page');else btn.removeAttribute('aria-current')});
+ const currentIndex=isMobile()?mobilePage:Math.min(spread*2+1,pages.length-1);
+ $('#position').innerHTML=`${currentIndex+1} / ${pages.length} pages<small>${sectionId===0?'Fiches · avant les intercalaires':'Intercalaire '+sectionId+' · '+safe(sections[sectionId].name)}</small>`;
+ const atStart=isMobile()?mobilePage===0:spread===0,atEnd=isMobile()?mobilePage===pages.length-1:spread>=Math.ceil(pages.length/2)-1;
+ $('#prev').disabled=$('#cornerPrev').disabled=atStart;$('#next').disabled=$('#cornerNext').disabled=atEnd;
+}
+function flip(step){
+ if(busy)return;
+ const mobile=isMobile(),old=mobile?mobilePage:spread,limit=mobile?pages.length:Math.ceil(pages.length/2);
+ let next=old+step;
+ // Les pages de calage servent uniquement à aligner les rectos à droite sur ordinateur.
+ // Sur téléphone, on les saute pour ne pas présenter de pages blanches inutiles.
+ if(mobile){while(next>=0&&next<limit&&pages[next]?.type==='blank')next+=step}
+ if(next<0||next>=limit)return;
+ busy=true;let front,back;
+ if(mobile){front=old;back=next;mobilePage=next;spread=Math.floor(mobilePage/2)}
+ else if(step>0){front=old*2+1;back=next*2;put(right,next*2+1)}
+ else{front=old*2;back=next*2+1;put(left,next*2)}
+ turner.className='turner visible '+(step>0?'forward':'backward');
+ if(mobile){put(right,next);turner.style.left='0';turner.style.width='100%'}
+ else{turner.style.left=step>0?'50%':'0';turner.style.width='50%'}
+ turnFront.innerHTML=description(pages[front]);turnBack.innerHTML=description(pages[back]);hydrate(turner);
+ let concluded=false;
+ const done=()=>{if(concluded)return;concluded=true;if(!mobile)spread=next;turner.className='turner';turnFront.innerHTML='';turnBack.innerHTML='';busy=false;render();if(refreshPending){refreshPending=false;setTimeout(()=>updateAfterPdf(),0)}};
+ turner.addEventListener('animationend',done,{once:true});setTimeout(done,850);
+}
+function jump(i){if(busy)return;const idx=firstIndexes[i]??0;if(isMobile())mobilePage=idx;else spread=Math.floor(idx/2);render()}
+function updateAfterPdf(){if(busy){refreshPending=true;return}const anchor=(isMobile()?pages[mobilePage]:pages[Math.min(spread*2+1,pages.length-1)])?.key;preparePages(anchor)}
+const nav=$('#index');sections.forEach((s,i)=>{const btn=document.createElement('button');btn.type='button';btn.style.setProperty('--tab',s.color);btn.innerHTML=`<span class="number ${i===0?'intro':''}">${i===0?'▤':i}</span><span>${safe(s.short)}</span>`;btn.setAttribute('aria-label',i===0?'Fiches avant le premier intercalaire':`Intercalaire ${i} : ${s.name}`);btn.onclick=()=>jump(i);nav.append(btn)});
+$('#next').onclick=()=>flip(1);$('#prev').onclick=()=>flip(-1);$('#cornerNext').onclick=()=>flip(1);$('#cornerPrev').onclick=()=>flip(-1);
+// Un clic sur la feuille droite avance et sur la gauche revient.
+// Les liens d'impression et les cases « Bien rangé » restent indépendants.
+$('#book').addEventListener('click',event=>{
+ if(busy || event.target.closest('a,button,input,label,select,textarea,[contenteditable="true"]'))return;
+ if(isMobile()){
+  const bounds=$('#book').getBoundingClientRect();
+  flip(event.clientX<bounds.left+bounds.width/2?-1:1);
+ }else if(event.target.closest('#leftPage'))flip(-1);
+ else if(event.target.closest('#rightPage'))flip(1);
+});
+document.addEventListener('keydown',e=>{if(e.target.closest('button,input,textarea,select,a'))return;if(e.key==='ArrowRight'){e.preventDefault();flip(1)}if(e.key==='ArrowLeft'){e.preventDefault();flip(-1)}});
+let startX=0,startY=0;$('#book').addEventListener('touchstart',e=>{if(e.touches.length===1){startX=e.touches[0].clientX;startY=e.touches[0].clientY}},{passive:true});
+$('#book').addEventListener('touchend',e=>{if(!startX||!isMobile())return;const dx=e.changedTouches[0].clientX-startX,dy=e.changedTouches[0].clientY-startY;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.5)flip(dx<0?1:-1);startX=0},{passive:true});
+window.addEventListener('resize',()=>{const now=isMobile();if(now!==previousMobile){if(now)mobilePage=Math.min(spread*2+1,pages.length-1);else spread=Math.floor(mobilePage/2);previousMobile=now;render()}});
+preparePages();
+async function loadCatalogue(){
+ try{
+  const response=await fetch('catalogue.json',{cache:'no-cache'});if(!response.ok)throw new Error('Catalogue inaccessible');
+  const listed=await response.json();if(!Array.isArray(listed))throw new Error('Catalogue incorrect');
+  const files=listed.filter(x=>x&&typeof x.path==='string'&&typeof x.filename==='string'&&/^documents\//.test(x.path));
+  for(const file of files){
+   const sect=sections.findIndex(s=>file.path.startsWith('documents/'+s.folder+'/'));if(sect<0)continue;
+   if(!/\.(pdf|jpe?g|png|webp)$/i.test(file.filename))continue;
+   docsBySection[sect].push({url:file.path,filename:file.filename,pages:1});
+  }
+  // Ordre personnalisable depuis l'espace enseignant : les nouveaux fichiers restent à la fin.
+  let savedOrder={};
+  try{
+   const response=await fetch('ordre.json',{cache:'no-store'});
+   if(response.ok){const obj=await response.json();if(obj&&typeof obj==='object'&&!Array.isArray(obj))savedOrder=obj}
+  }catch(err){console.warn('Ordre manuel indisponible, tri par nom conservé.',err)}
+  docsBySection.forEach((arr,sect)=>{
+   const positions=new Map((Array.isArray(savedOrder[sections[sect].folder])?savedOrder[sections[sect].folder]:[]).map((name,i)=>[name,i]));
+   arr.sort((a,b)=>{
+    const i=positions.has(a.filename)?positions.get(a.filename):Infinity;
+    const j=positions.has(b.filename)?positions.get(b.filename):Infinity;
+    return i-j||a.filename.localeCompare(b.filename,'fr',{numeric:true});
+   });
+  });
+  preparePages();
+  const docs=docsBySection.flat(),count=docs.length;
+  $('#loadStatus').textContent=count?`${count} document${count===1?'':'s'} disponible${count===1?'':'s'} dans le classeur.`:'Les parties sont prêtes. Le professeur ajoutera les premières fiches.';
+  const pdfDocs=docs.filter(isPdf);if(!pdfDocs.length)return;
+  try{
+   pdfjs=await import('https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.min.mjs');
+   pdfjs.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.10.38/pdf.worker.min.mjs';
+  }catch(err){$('#loadStatus').textContent+=' Les PDF restent disponibles avec « Ouvrir / imprimer ».';return}
+  // Limite le nombre de PDF chargés simultanément.
+  let index=0;
+  async function worker(){while(index<pdfDocs.length){const doc=pdfDocs[index++];try{const pdf=await pdfPromise(doc.url);doc.pages=pdf.numPages;updateAfterPdf()}catch(err){console.warn('PDF indisponible',doc.filename,err)}}}
+  await Promise.all(Array.from({length:Math.min(3,pdfDocs.length)},worker));
+  $('#loadStatus').textContent=`${count} document${count===1?'':'s'} dans le classeur. Tu peux les consulter et les imprimer.`;
+ }catch(error){
+  $('#loadStatus').textContent='Aperçu du classeur : il n’y a pas encore de catalogue publié. Sur le site Web, les documents déposés apparaîtront automatiquement.';
+  console.warn(error);
+ }
+}
+loadCatalogue();
+</script>
+</body></html>
