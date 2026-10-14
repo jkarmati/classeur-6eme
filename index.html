@@ -40,7 +40,7 @@ a{color:#226178}.help-link{display:inline-block;margin:9px 6px 0 0;color:#205c66
 <button type="button" class="corner prev" id="cornerPrev" aria-label="Tourner la page en arrière" title="Page précédente"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
 <button type="button" class="corner next" id="cornerNext" aria-label="Tourner la page en avant" title="Page suivante"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
 </div></div>
-<p class="footnote">Chaque PDF occupe <strong>une seule feuille du classeur</strong>, même si c’est un livret de plusieurs pages. Clique sur « Ouvrir / imprimer » pour voir le document entier. Pour feuilleter le classeur, clique sur la page de droite ou de gauche ; sur téléphone, touche un côté ou balaie du doigt.</p>
+<p class="footnote">Le classeur reproduit le rangement papier : pour un PDF de <strong>2 pages</strong>, recto puis verso ; pour un livret de <strong>plus de 2 pages</strong>, première puis dernière page (faces visibles de la pochette). Les pages intérieures se consultent avec « Ouvrir / imprimer ». Clique sur les feuilles pour les tourner, ou utilise les boutons en haut.</p>
 </section></div>
 </main>
 <script type="module">
@@ -70,7 +70,19 @@ function preparePages(keepKey=null){
   const arr=docsBySection[s];
   if(!arr.length){list.push({type:'empty',sect:s,key:'empty-'+s});continue}
   // Un PDF (même un livret multipage) = une seule feuille virtuelle.
-  for(const doc of arr)list.push({type:'doc',sect:s,doc,docPage:1,key:'doc-'+doc.url+'#1'})
+  for(const doc of arr){
+   // Les fiches de compétences gardent une seule face, comme précédemment.
+   // Ailleurs, une feuille recto-verso ou une pochette agrafée montre
+   // exactement ses deux faces extérieures : première et dernière page du PDF.
+   const faces=(s===2||doc.pages<=1)?[1]:[1,doc.pages];
+   if(s!==2 && list.length%2===0){
+    // Le recto doit être à droite, le verso à gauche après feuilletage.
+    list.push({type:'blank',sect:s,key:'blank-'+doc.url});
+   }
+   for(const docPage of faces){
+    list.push({type:'doc',sect:s,doc,docPage,key:'doc-'+doc.url+'#'+docPage});
+   }
+  }
  }
  pages=list;firstIndexes=starts;
  if(keepKey){const idx=pages.findIndex(x=>x.key===keepKey);if(idx>=0){spread=Math.floor(idx/2);mobilePage=idx}else {spread=Math.min(spread,Math.ceil(pages.length/2)-1);mobilePage=Math.min(mobilePage,pages.length-1)}}
@@ -85,12 +97,16 @@ function description(entry){
   cls='cover';inner=`<div class="binder-logo">✦ &nbsp; Classeur de classe</div><div class="cover-title">Mon classeur<br>de 6e</div><div class="cover-grade">Pour apprendre à bien ranger</div><p>Les mêmes fiches et intercalaires que dans ton classeur papier, accessibles à la maison.</p><div class="mini-stack">${sections.slice(1).map(x=>`<span style="--c:${x.color}"></span>`).join('')}</div>`;
  }else if(entry.type==='divider'){
   cls='divider-page';inner=`<div class="eyebrow">Intercalaire ${entry.sect} sur 6</div><div class="large-num">${entry.sect}</div><div class="section-title">${safe(s.name)}</div><div class="section-caption">Tourne encore la page pour découvrir<br>les documents de cette partie.</div><span class="vertical-tab" style="--tab:${color};--top:${12+entry.sect*10}%">${entry.sect} ${safe(s.name)}</span>`;
+ }else if(entry.type==='blank'){
+  inner='';
  }else if(entry.type==='empty'){
   if(entry.sect===0)inner=`<div class="eyebrow">Tout au début du classeur</div><h2>Les fiches</h2><p>Ces fiches sont rangées <strong>avant l'intercalaire n° 1 « Activités ».</strong></p><div class="fiche-decoration" aria-hidden="true"><span></span><span></span><span></span></div><div class="empty-note"><strong>Pas encore de documents</strong><p>Quand le professeur ajoutera des fiches, elles apparaîtront ici.</p></div>`;
   else inner=`<div class="eyebrow">Intercalaire ${entry.sect} / 6</div><h2>${safe(s.name)}</h2><div style="width:62px;height:5px;border-radius:4px;background:${color};margin:5px 0 12px"></div><div class="empty-note"><strong>Pas encore de documents</strong><p>Les prochains documents déposés dans cette partie apparaîtront ici automatiquement.</p></div>`;
  }else if(entry.type==='doc'){
   cls='document-sheet';const d=entry.doc,scoped=encodeURIComponent(d.url),title=safe(neat(d.filename)),pdf=isPdf(d);
-  const count=pdf&&d.pages>1?`<span class="document-count">Livret · ${d.pages} pages</span>`:'<span class="document-count">1 feuille</span>';
+  const hasVerso=entry.sect!==2&&pdf&&d.pages>1;
+  const face=hasVerso?(entry.docPage===1?'Recto':'Verso'):'';
+  const count=hasVerso?`<span class="document-count">${face} · ${d.pages===2?'recto-verso':d.pages+' pages agrafées'}</span>`:(pdf&&d.pages>1?`<span class="document-count">Livret · ${d.pages} pages</span>`:'<span class="document-count">1 feuille</span>');
   const preview=pdf?`<canvas data-pdf-url="${safe(d.url)}" data-pdf-page="${entry.docPage}" aria-label="Aperçu de ${title}, page ${entry.docPage}"></canvas><div class="preview-hint">Aperçu du PDF en cours…<a href="${safe(d.url)}" target="_blank" rel="noopener">Ouvrir le document</a></div>`:`<img loading="lazy" alt="${title}" src="${safe(d.url)}">`;
   inner=`<div class="document-layout" data-sheet="${scoped}"><div class="document-top"><div><div class="document-tag">${entry.sect===0?'Avant les intercalaires':'Intercalaire '+entry.sect+' · '+safe(s.name)}</div><div class="document-name">${title}</div></div>${count}</div><div class="page-preview">${preview}</div><div class="document-actions"><a href="${safe(d.url)}" target="_blank" rel="noopener">↗ Ouvrir / imprimer</a><label class="doc-check"><input type="checkbox" data-check="${safe(d.url)}" ${isChecked(d)?'checked':''}><span>Bien rangé ✓</span></label></div></div>`;
  }
