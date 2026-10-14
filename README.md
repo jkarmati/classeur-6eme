@@ -10,7 +10,7 @@ Le classeur reproduit le rangement papier (fiches avant six intercalaires, recto
 
 L'espace enseignant permet de déposer des PDF ou images dans l'intercalaire choisi et de choisir leur ordre par glisser-déposer (ou ↑ / ↓ sur téléphone). **Il n'est plus nécessaire de renommer les fichiers ni d'utiliser GitHub Desktop pour les nouveaux documents.**
 
-Une autorisation GitHub personnelle limitée à ce dépôt, avec permission « Contents : Read and write », est nécessaire pour enregistrer les changements. Elle est saisie sur la page de gestion et conservée uniquement pendant la visite, jamais dans les fichiers publics ni le stockage du navigateur.
+Une autorisation GitHub personnelle limitée à ce dépôt, avec permission « Contents : Read and write », est nécessaire pour enregistrer les changements. Après la première connexion, l'enseignant peut choisir une phrase de passe longue pour conserver **une version chiffrée du jeton uniquement dans son navigateur personnel** (AES-GCM, dérivation PBKDF2). Ni le jeton en clair ni la phrase de passe ne sont publiés dans les fichiers du site.
 
 Les modifications sont visibles après le déploiement GitHub Pages (généralement quelques minutes).
 
